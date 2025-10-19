@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Калькулятор стоимости заказа</title>
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .calculator {
+    background: #fff;
+    padding: 25px 35px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    width: 350px;
+    text-align: center;
+  }
+
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    text-align: left;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: all 0.3s;
+    box-sizing: border-box;
+  }
+
+  input:focus, select:focus {
+    border-color: #5c7cfa;
+    outline: none;
+    box-shadow: 0 0 5px rgba(92,124,250,0.4);
+  }
+
+  button {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #5c7cfa;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background-color: #4756d4;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #222;
+    font-weight: 600;
+  }
+
+  .error {
+    color: #d93025;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <h2>Калькулятор заказа</h2>
+
+  <form>
+    <label for="quantity">Количество товара:</label>
+    <input name="quantity" id="quantity" type="text" placeholder="Введите количество">
+
+    <label for="product">Выберите товар:</label>
+    <select name="product" id="product">
+      <option value="28000">Ноутбук — 28000 ₽</option>
+      <option value="12000">Смартфон — 12000 ₽</option>
+      <option value="2500">Наушники — 2500 ₽</option>
+      <option value="7000">Колонка — 7000 ₽</option>
+      <option value="17000">Планшет — 17000 ₽</option>
+    </select>
+
+    <button type= "button" onclick= "calcCost();">Рассчитать стоимость</button>
+  </form>
+
+  <div id="result"></div>
+</div>
+
+<script>
+function calcCost() {
+  let q = document.getElementsByName("quantity")[0];
+  let p = document.getElementsByName("product")[0];
+  let r = document.getElementById("result");
+
+  let str = q.value.trim();
+  let m = str.match(/^\d+$/);
+
+  if (m === null || Number(str) <= 0) {
+    r.innerHTML = "<span class='error'>Введите корректное количество!</span>";
+    return false;
+  }
+
+  let quantity = parseInt(str);
+  let price = parseFloat(p.value);
+  let total = quantity * price;
+
+  r.innerHTML = `Стоимость заказа: <span style="color:#5c7cfa">${total.toFixed(2)} ₽ </span>`;
+  return false;
+}
+</script>
+
+</body>
+</html>
